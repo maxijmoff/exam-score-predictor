@@ -189,7 +189,7 @@ with st.form("input_form"):
 
         study_method = st.selectbox(
             "Study Method",
-            ["coaching", "online videos", "self-study"],
+            ["coaching", "online videos", "self-study", "mixed", "group-study"],
             index=None,
             placeholder="Choose"
         )
