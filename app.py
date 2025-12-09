@@ -6,7 +6,7 @@ import streamlit as st
 num_cols = joblib.load("num_cols.pkl")
 scaler = joblib.load("scaler.pkl")
 onehot_columns = joblib.load("onehot_columns.pkl")
-final_lr = joblib.load("final_linear_regression.pkl")
+final_ridge = joblib.load("final_ridge_model.pkl")
 
 # PREDICTION FUNCTION
 def predict_score(age, study_hours, class_attendance, sleep_hours,
@@ -32,7 +32,8 @@ def predict_score(age, study_hours, class_attendance, sleep_hours,
     df_encoded = df_encoded.reindex(columns=onehot_columns, fill_value=0)
     df_encoded[num_cols] = scaler.transform(df_encoded[num_cols])
 
-    pred = final_lr.predict(df_encoded)[0]
+    pred = final_ridge.predict(df_encoded)[0]
+    pred = max(0, min(pred, 100))
     return round(float(pred), 2)
 
 # PAGE CONFIG
